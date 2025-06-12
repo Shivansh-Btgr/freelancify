@@ -4,11 +4,12 @@ services:
     env: docker
     dockerfilePath: ./dockerfile
     plan: free
+    healthCheckPath: /api/
     envVars:
       - key: DEBUG
-        value: True
+        value: False
       - key: DJANGO_SETTINGS_MODULE
-        value: project.settings
+        value: project.production
       - key: SECRET_KEY
         generateValue: true
       - key: ALLOWED_HOSTS

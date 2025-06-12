@@ -2,6 +2,8 @@
 
 A Django REST Framework API for job posting and application management with JWT authentication.
 
+**🔗 Live Demo: [https://job-app-api-kg6a.onrender.com](https://job-app-api-kg6a.onrender.com)**
+
 ## Features
 
 - 🔐 User authentication with JWT tokens
@@ -11,8 +13,16 @@ A Django REST Framework API for job posting and application management with JWT 
 - 📊 Status tracking for applications
 - 📖 Interactive API documentation
 - 🐳 Docker containerization with PostgreSQL
+- 🚀 CI/CD pipeline with GitHub Actions
+- ☁️ Production deployment on Render
 
-## Quick Start with Docker 
+## Live API Documentation
+
+- **Swagger UI**: [https://job-app-api-kg6a.onrender.com/api/schema/swagger-ui/](https://job-app-api-kg6a.onrender.com/api/schema/swagger-ui/)
+- **ReDoc**: [https://job-app-api-kg6a.onrender.com/api/schema/redoc/](https://job-app-api-kg6a.onrender.com/api/schema/redoc/)
+- **Admin Panel**: [https://job-app-api-kg6a.onrender.com/admin/](https://job-app-api-kg6a.onrender.com/admin/)
+
+## Quick Start with Docker
 
 1. Clone the repository:
    ```bash
@@ -35,7 +45,22 @@ A Django REST Framework API for job posting and application management with JWT 
    - **Swagger UI**: http://localhost:8000/api/schema/swagger-ui/
    - **Admin Panel**: http://localhost:8000/admin/
 
-## Manual Setup 
+## Production Deployment
+
+This project includes:
+- ✅ **CI/CD Pipeline** with GitHub Actions
+- ✅ **Automated testing** with PostgreSQL
+- ✅ **Docker containerization**
+- ✅ **Production deployment** on Render
+- ✅ **Database migrations** and health checks
+
+### Deployment Process:
+1. Push to `main` branch
+2. GitHub Actions runs tests
+3. Builds Docker image
+4. Render auto-deploys from GitHub
+
+## Manual Setup (Alternative)
 
 <details>
 <summary>Click to expand manual setup instructions</summary>
@@ -71,13 +96,6 @@ A Django REST Framework API for job posting and application management with JWT 
    ```
 
 </details>
-
-## API Documentation
-
-Once running, visit:
-- **Swagger UI**: `/api/schema/swagger-ui/`
-- **ReDoc**: `/api/schema/redoc/`
-- **Schema**: `/api/schema/`
 
 ## API Endpoints
 
@@ -115,9 +133,11 @@ Once running, visit:
 - Django 5.2.2
 - Django REST Framework 3.16.0
 - JWT Authentication (djangorestframework-simplejwt)
-- PostgreSQL (Docker) / SQLite (Manual)
-- drf-spectacular (API docs)
+- PostgreSQL (Production) / SQLite (Development)
+- drf-spectacular (API documentation)
 - Docker & Docker Compose
+- GitHub Actions (CI/CD)
+- Render (Production deployment)
 
 ## Development
 
@@ -147,3 +167,7 @@ DEBUG=True
 ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
 DATABASE_URL=postgres://postgres:postgres@db:5432/jobapp
 ```
+
+## License
+
+This project is open source and available under the [MIT License](LICENSE).
