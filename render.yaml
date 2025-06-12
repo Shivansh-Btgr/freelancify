@@ -4,16 +4,15 @@ services:
     env: docker
     dockerfilePath: ./dockerfile
     plan: free
-    healthCheckPath: /api/
     envVars:
       - key: DEBUG
-        value: False
+        value: True
       - key: DJANGO_SETTINGS_MODULE
-        value: project.production
+        value: project.settings
       - key: SECRET_KEY
         generateValue: true
       - key: ALLOWED_HOSTS
-        value: .onrender.com
+        value: .onrender.com,localhost,127.0.0.1
 
 databases:
   - name: job-app-db
