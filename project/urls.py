@@ -20,6 +20,43 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from rest_framework.reverse import reverse
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
+@api_view(['GET'])
+def api_root(request, format=None):
+    """
+    API Root - Job Application Management System
+    """
+    return Response({
+        'message': 'Job Application API',
+        'version': '1.0',
+        'endpoints': {
+            'authentication': {
+                'register': reverse('register', request=request, format=format),
+                'login': reverse('login', request=request, format=format),
+                'logout': reverse('logout', request=request, format=format),
+                'token_refresh': reverse('token_refresh', request=request, format=format),
+            },
+            'accounts': {
+                'profile': reverse('profile', request=request, format=format),
+            },
+            'posts': {
+                'list_posts': reverse('post-list', request=request, format=format),
+                'create_post': reverse('post-create', request=request, format=format),
+                'my_posts': reverse('my-posts', request=request, format=format),
+                'my_applications': reverse('my-applications', request=request, format=format),
+            },
+            'documentation': {
+                'swagger_ui': reverse('swagger-ui', request=request, format=format),
+                'redoc': reverse('redoc', request=request, format=format),
+                'schema': reverse('schema', request=request, format=format),
+            }
+        },
+        'status': 'operational'
+    })
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
