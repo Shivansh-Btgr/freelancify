@@ -1,0 +1,11 @@
+.git
+.gitignore
+README.md
+Dockerfile
+.dockerignore
+node_modules
+.vscode
+__pycache__
+*.pyc
+.pytest_cache
+.coverage
