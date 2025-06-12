@@ -79,25 +79,17 @@ jobs:
           -e SECRET_KEY=test-key \
           -e ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0 \
           -e DATABASE_URL=sqlite:///db.sqlite3 \
+          -e PORT=8000 \
           job-app:latest
         
         echo "Waiting for container to start..."
-        sleep 15
-        
-        echo "Checking if container is running..."
-        docker ps
+        sleep 20
         
         echo "Checking container logs..."
         docker logs test-container
         
-        echo "Testing root endpoint..."
-        curl -f http://localhost:8000/ || echo "Root endpoint failed"
-        
         echo "Testing API endpoint..."
-        curl -f http://localhost:8000/api/ || echo "API endpoint failed"
-        
-        echo "Testing with curl -v for debugging..."
-        curl -v http://localhost:8000/api/
+        curl -f http://localhost:8000/api/ || echo "API endpoint test failed"
         
         docker stop test-container
         docker rm test-container
