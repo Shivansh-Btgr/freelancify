@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: job-app-api
+    env: docker
+    dockerfilePath: ./dockerfile
+    plan: free
+    healthCheckPath: /api/
+    envVars:
+      - key: DEBUG
+        value: False
+      - key: DJANGO_SETTINGS_MODULE
+        value: project.production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: .onrender.com
+
+databases:
+  - name: job-app-db
+    databaseName: jobapp
+    user: jobapp_user
+    plan: free
