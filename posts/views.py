@@ -7,6 +7,10 @@ from drf_spectacular.utils import extend_schema
 from .permissions import CanViewDetailedPost
 from .models import Post, Application
 from .serializers import PostCreateSerializer, PostListSerializer, PostDetailSerializer, PostUpdateSerializer, ApplicationCreateSerializer, ApplicationListSerializer, ApplicationStatusUpdateSerializer
+from rest_framework.throttling import UserRateThrottle
+
+class ApplyRateThrottle(UserRateThrottle):
+    scope = 'apply'
 
 class PostCreateView(generics.CreateAPIView):
     queryset = Post.objects.all()
@@ -89,6 +93,7 @@ class PostUpdateView(generics.UpdateAPIView):
 class PostApplyView(generics.CreateAPIView):
     serializer_class = ApplicationCreateSerializer
     permission_classes = [IsAuthenticated]
+    throttle_classes = [ApplyRateThrottle]
     
     @extend_schema(
         summary="Apply to a job post",

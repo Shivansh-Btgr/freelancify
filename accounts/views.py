@@ -7,6 +7,15 @@ from django.contrib.auth import authenticate
 from drf_spectacular.utils import extend_schema
 from .serializers import UserRegistrationSerializer, UserLoginSerializer, UserSerializer, UserProfileUpdateSerializer
 from .models import CustomUser
+from rest_framework.throttling import AnonRateThrottle
+from rest_framework.decorators import api_view, permission_classes, throttle_classes
+
+# Create custom throttle classes
+class LoginRateThrottle(AnonRateThrottle):
+    scope = 'login'
+
+class RegisterRateThrottle(AnonRateThrottle):
+    scope = 'register'
 
 @extend_schema(
     summary="Register a new user",
@@ -17,6 +26,7 @@ from .models import CustomUser
 )
 @api_view(['POST'])
 @permission_classes([AllowAny])
+@throttle_classes([RegisterRateThrottle])
 def register(request):
     serializer = UserRegistrationSerializer(data=request.data)
     if serializer.is_valid():
@@ -38,6 +48,7 @@ def register(request):
 )
 @api_view(['POST'])
 @permission_classes([AllowAny])
+@throttle_classes([LoginRateThrottle])
 def login(request):
     serializer = UserLoginSerializer(data=request.data)
     if serializer.is_valid():
