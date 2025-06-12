@@ -33,25 +33,13 @@ def api_root(request, format=None):
         'message': 'Job Application API',
         'version': '1.0',
         'endpoints': {
-            'authentication': {
-                'register': reverse('register', request=request, format=format),
-                'login': reverse('login', request=request, format=format),
-                'logout': reverse('logout', request=request, format=format),
-                'token_refresh': reverse('token_refresh', request=request, format=format),
-            },
-            'accounts': {
-                'profile': reverse('profile', request=request, format=format),
-            },
-            'posts': {
-                'list_posts': reverse('post-list', request=request, format=format),
-                'create_post': reverse('post-create', request=request, format=format),
-                'my_posts': reverse('my-posts', request=request, format=format),
-                'my_applications': reverse('my-applications', request=request, format=format),
-            },
+            'authentication': '/api/auth/',
+            'accounts': '/api/accounts/',
+            'posts': '/api/posts/',
             'documentation': {
-                'swagger_ui': reverse('swagger-ui', request=request, format=format),
-                'redoc': reverse('redoc', request=request, format=format),
-                'schema': reverse('schema', request=request, format=format),
+                'swagger_ui': '/api/docs/',
+                'redoc': '/api/redoc/',
+                'schema': '/api/schema/',
             }
         },
         'status': 'operational'
@@ -60,13 +48,22 @@ def api_root(request, format=None):
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    
+    # API Root endpoint
+    path('api/', api_root, name='api-root'),
+    
+    # API endpoints
     path('api/auth/', include('accounts.urls')),
     path('api/accounts/', include('accounts.urls')),
     path('api/posts/', include('posts.urls')),
+    
+    # Documentation
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
-    path('', RedirectView.as_view(url='/api/schema/swagger-ui/', permanent=False), name='root-redirect'),
+    
+    # Redirect root to docs
+    path('', RedirectView.as_view(url='/api/docs/', permanent=False), name='root-redirect'),
 ]
 
 if settings.DEBUG:
